@@ -1,0 +1,29 @@
+.login-container {
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5; /* Light background for contrast */
+}
+
+.login-card {
+  width: 45%;
+  padding: 30px;
+//box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+    button {
+      width: 100%; /* Make the login button span the full width */
+    }
+  }
+}
