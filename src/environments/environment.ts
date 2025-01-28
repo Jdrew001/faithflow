@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    baseUrl: 'http://localhost:3000/faithFlowApi',
+    baseUrl: 'http://192.168.12.152:3000/faithFlowApi',
   };

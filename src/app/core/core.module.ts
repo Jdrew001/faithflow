@@ -27,11 +27,11 @@ import { RouterModule } from '@angular/router';
       useClass: ErrorInterceptor,
       multi: true, // Ensures multiple interceptors can work together
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: TokenInterceptor,
+    //   multi: true
+    // }
   ],
   exports: [
     FormsModule,

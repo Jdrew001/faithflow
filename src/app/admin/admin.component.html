@@ -1,0 +1,47 @@
+<div class="admin-container">
+  <!-- Sidebar -->
+  <div
+    [ngClass]="{ 'sidebar-collapsed': isCollapsed, hidden: isCollapsed && isMobile() }"
+    class="sidebar"
+  >
+    <!-- Logo Section -->
+    <div class="logo-section">
+      <img src="assets/logo.png" alt="Logo" class="logo responsive-logo" />
+    </div>
+
+    <!-- Menu Items -->
+    <ul>
+      <li *ngFor="let item of sidebarItems">
+        <a [routerLink]="item.routerLink" title="{{ item.label }}">
+          <i class="{{ item.icon }}"></i>
+          <span *ngIf="!isCollapsed">{{ item.label }}</span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Logout Button -->
+    <button class="logout-btn" (click)="logout()">
+      <i class="pi pi-sign-out p-1"></i>
+      <span *ngIf="!isCollapsed">Logout</span>
+    </button>
+
+    <!-- Toggle Button -->
+    <button class="toggle-btn" (click)="toggleSidebar()">
+      <i [class]="isCollapsed ? 'pi pi-angle-right' : 'pi pi-angle-left'"></i>
+    </button>
+  </div>
+
+  <!-- Floating Expand Button (Mobile Only) -->
+  <button
+    *ngIf="isMobile() && isCollapsed"
+    class="floating-expand-btn"
+    (click)="toggleSidebar()"
+  >
+    <i class="pi pi-bars"></i>
+  </button>
+
+  <!-- Content -->
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

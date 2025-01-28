@@ -1,0 +1,170 @@
+/* Main container for the layout */
+.admin-container {
+  display: flex;
+  height: 100dvh;
+}
+
+/* Sidebar */
+.sidebar {
+  z-index: 9999;
+  width: 250px;
+  background-color: #2d3436;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  transition: width 0.3s ease, transform 0.3s ease-in-out;
+}
+
+.sidebar-collapsed {
+  width: 60px;
+}
+
+.hidden {
+  transform: translateX(-250px); /* Move sidebar offscreen on mobile */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%; /* Full height on mobile */
+  z-index: 999;
+}
+
+/* Logo Section */
+.logo-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border-bottom: 1px solid #444;
+}
+
+.logo {
+  transition: all 0.3s ease-in-out;
+  width: 75%;
+}
+
+/* Sidebar Menu Items */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.sidebar ul li {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.sidebar ul li:hover {
+  background-color: #444;
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.sidebar ul li a i {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.sidebar ul li a span {
+  font-size: 16px;
+}
+
+/* Logout button */
+.logout-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.logout-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Toggle Button */
+.toggle-btn {
+  background-color: #1e272e;
+  color: white;
+  border: none;
+  text-align: center;
+  padding: 30px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-btn:hover {
+  background-color: #34495e;
+}
+
+.toggle-btn i {
+  font-size: 18px;
+}
+
+/* Floating Expand Button (Mobile Only) */
+.floating-expand-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #2d3436;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  z-index: 1000;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.floating-expand-btn:hover {
+  background-color: #34495e;
+}
+
+.floating-expand-btn i {
+  font-size: 24px;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    height: 100%;
+  }
+
+  .hidden {
+    transform: translateX(-250px); /* Hide sidebar completely on mobile */
+  }
+}

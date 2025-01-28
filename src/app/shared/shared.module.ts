@@ -7,7 +7,8 @@ import { CardModule } from 'primeng/card';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-
+import { CarouselModule } from 'primeng/carousel';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
@@ -19,7 +20,9 @@ import { MessageService } from 'primeng/api';
     CheckboxModule,
     CardModule,
     FloatLabelModule,
-    ToastModule
+    ToastModule,
+    CarouselModule,
+    TableModule
   ],
   providers: [
     MessageService
@@ -29,7 +32,9 @@ import { MessageService } from 'primeng/api';
     InputTextModule,
     CheckboxModule,
     CardModule,
-    FloatLabelModule
+    FloatLabelModule,
+    CarouselModule,
+    TableModule
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,409 @@
+.dashboard {
+  padding: 15px;
+  background-color: #f9f9fb;
+}
+
+/* Welcome Message */
+/* Welcome message container */
+.welcome-message {
+  display: flex;
+  flex-direction: column;
+  padding: 0.3rem;
+  padding-bottom: 1rem;
+  background-color: #f9f9fb;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Header container (flexbox for alignment) */
+.welcome-header {
+  display: flex;
+  justify-content: space-between; /* Pushes content to edges */
+  align-items: center; /* Vertically aligns text and bell icon */
+}
+
+/* Heading styles */
+.welcome-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+
+.welcome-header p {
+  margin: 0;
+  font-size: 16px;
+  color: #616161;
+}
+
+/* Notification bell button */
+.notification-bell {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #616161;
+  font-size: 1.5rem;
+  transition: color 0.2s;
+}
+
+.notification-bell:hover {
+  color: #000;
+}
+
+.notification-bell i {
+  font-size: 24px;
+}
+
+/* Carousel Styles */
+.custom-carousel .p-carousel-content {
+  gap: 30px; /* Add space between cards */
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.card p {
+  font-size: 14px;
+  color: #777;
+  margin-top: 10px;
+}
+
+.p-carousel-next,
+.p-carousel-prev {
+  color: #333 !important;
+  font-size: 1.5rem;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.p-carousel-next:hover,
+.p-carousel-prev:hover {
+  opacity: 1;
+}
+
+/* Deep Styling for PrimeNG Carousel */
+:host ::ng-deep .p-carousel-items-container {
+  margin: 0.5rem 0 1.4rem 0 !important;
+}
+
+:host ::ng-deep .p-carousel-item {
+  padding: 0 1rem !important;
+}
+
+:host ::ng-deep .p-carousel-prev {
+  display: none;
+}
+
+:host ::ng-deep .p-carousel-next {
+  display: none;
+}
+
+:host ::ng-deep .p-carousel-item:hover {
+  cursor: pointer !important;
+}
+
+/* Activity Logs Section */
+.recent-activity {
+  margin-top: 30px;
+  margin-bottom: 10rem;
+}
+
+.recent-activity h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.p-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.p-table th {
+  text-align: left;
+  font-weight: bold;
+  color: #616161;
+  font-size: 14px;
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.p-table td {
+  font-size: 14px;
+  color: #333;
+  vertical-align: middle;
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.p-table .pi {
+  font-size: 1.2rem;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+/* Table Column Widths */
+.p-table td:first-child {
+  width: 25%; /* Action column */
+}
+
+.p-table td:nth-child(2) {
+  width: 30%; /* Related To column */
+}
+
+.p-table td:nth-child(3) {
+  width: 20%; /* Performed By column */
+}
+
+.p-table td:nth-child(4) {
+  width: 25%; /* Timestamp column */
+}
+
+/* To-Do List Section */
+.todo-list, .task-metrics {
+  margin-top: 30px;
+}
+
+.todo-list h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.task-metrics h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.todo-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.todo-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  margin-bottom: 10px;
+  transition: box-shadow 0.2s ease;
+}
+
+.todo-list li:hover {
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.task-info h4 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+
+.task-info p {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0;
+}
+
+.task-actions {
+  text-align: right;
+}
+
+.task-actions button {
+  background: #43a047;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.task-actions button:hover {
+  background: #2e7d32;
+}
+
+.task-status {
+  font-size: 14px;
+  font-weight: bold;
+  color: #616161;
+  padding-left: 2px;
+}
+
+.todo-list .overdue {
+  border-left: 4px solid red; /* Orange for Pending */
+}
+
+.todo-list .todo {
+  border-left: 4px solid #1e88e5; /* Blue for In Progress */
+}
+
+.todo-list .completed {
+  border-left: 4px solid #43a047; /* Green for Completed */
+}
+
+/* Guest Engagement Metrics Section */
+.guest-metrics {
+  margin-top: 30px;
+}
+
+.guest-metrics h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.metric-cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.metric-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  flex: 1 1 30%;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.metric-value {
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.metric-description {
+  font-size: 16px;
+  color: #777;
+}
+
+/* RESPONSIVENESS */
+
+/* Mobile View: General Adjustments */
+@media screen and (max-width: 768px) {
+  .dashboard {
+    padding: 10px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .card h3 {
+    font-size: 20px;
+  }
+
+  .card p {
+    font-size: 12px;
+  }
+
+  .welcome-message h2 {
+    font-size: 24px;
+  }
+
+  .welcome-message p {
+    font-size: 14px;
+  }
+
+  .recent-activity h3,
+  .todo-list h3,
+  .task-metrics h3 {
+    font-size: 20px;
+  }
+
+  .p-table th,
+  .p-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .todo-list li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .task-actions {
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .task-actions button {
+    width: 100%;
+  }
+}
+
+/* Mobile View: Carousel */
+@media screen and (max-width: 768px) {
+  .custom-carousel .p-carousel-content {
+    gap: 15px; /* Reduce gap for smaller screens */
+  }
+
+  :host ::ng-deep .p-carousel-items-container {
+    margin: 0.2rem 0 1rem 0 !important;
+  }
+
+  :host ::ng-deep .p-carousel-item {
+    padding: 0.5rem !important;
+  }
+}
+
+/* Mobile View: Stacked Table */
+@media screen and (max-width: 768px) {
+  .p-table {
+    display: block; /* Enable stacked view */
+  }
+
+  .p-table th,
+  .p-table td {
+    display: block; /* Stack headers and rows */
+    width: 100%;
+  }
+
+  .p-table th {
+    background: #f0f0f0; /* Add light background to headers */
+    margin-bottom: 5px;
+    border: none;
+  }
+
+  .p-table td {
+    border: none;
+    margin-bottom: 10px;
+  }
+}

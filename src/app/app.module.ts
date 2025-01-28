@@ -21,6 +21,13 @@ import { CoreModule } from './core/core.module';
     CoreModule,
     SharedModule
   ],
+  exports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    CoreModule,
+    SharedModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

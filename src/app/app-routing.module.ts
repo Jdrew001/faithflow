@@ -5,19 +5,19 @@ import { AuthGuard } from "./core/guard/auth.guard";
 
 export const appRoutes: Route[] = [
   {
-    path: "", redirectTo: "/dashboard", pathMatch: "full"
+    path: "", redirectTo: "/auth/login", pathMatch: "full"
   },
   {
     path: "auth", // Define a route for 'home'
     loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
   },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-    canActivate: [AuthGuard]
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    //canActivate: [AuthGuard]
   },
   {
-    path: "**", redirectTo: "/dashboard" // Catch-all route for undefined paths
+    path: "**", redirectTo: "/auth/login" // Catch-all route for undefined paths
   }
 ];
 
