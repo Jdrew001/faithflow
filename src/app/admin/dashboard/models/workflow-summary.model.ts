@@ -1,6 +1,6 @@
 export interface WorkflowSummary {
-    totalWorkflows?: number;
-    activeWorkflows?: number;
-    completedWorkflows?: number;
-    pendingSteps?: number;
+    value: string;
+    description: string;
+    icon: string;
+    iconColor: string;
 }
