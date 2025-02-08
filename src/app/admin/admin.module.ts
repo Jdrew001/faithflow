@@ -24,8 +24,6 @@ import { MenuModule } from 'primeng/menu';
     MenuModule,
   ],
   exports: [
-    CoreModule,
-    SharedModule
   ]
 })
 export class AdminModule { }

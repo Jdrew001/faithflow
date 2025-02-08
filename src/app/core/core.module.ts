@@ -7,6 +7,7 @@ import { AuthService } from './services/auth.service';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { UserService } from './services/user.service';
 
 
 
@@ -22,16 +23,17 @@ import { RouterModule } from '@angular/router';
   providers: [
     HttpHelperService,
     AuthService,
+    //UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
       multi: true, // Ensures multiple interceptors can work together
     },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: TokenInterceptor,
-    //   multi: true
-    // }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   exports: [
     FormsModule,

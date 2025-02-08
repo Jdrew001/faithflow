@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { WorkflowSummary } from './models/workflow-summary.model';
 import { DashboardService } from './services/dashboard.service';
 import { ActivityLogList } from './models/activity-log.model';
+import { GuestMetricModel } from './models/guest-metrics.model';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,13 +14,14 @@ export class DashboardComponent implements OnInit {
 
   get summary(): WorkflowSummary[] { return this.dashboardService?.workflowSummary || []; }
   get activityLogs(): ActivityLogList[] { return this.dashboardService?.activityLogList || []; }
+  get guestMetrics(): GuestMetricModel[] { return this.dashboardService?.guestMetrics || []; }
   todoTasks: any[] = [];
   responsiveOptions: any[] = [];
-  guestMetrics: any[] = [];
   taskMetrics: any[] = [];
 
   constructor(
-    private readonly dashboardService: DashboardService
+    private readonly dashboardService: DashboardService,
+    private readonly userService: UserService
   ) {}
 
 
@@ -32,20 +35,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private initializeGuestMetrics(): void {
-    this.guestMetrics = [
-      {
-        value: 25,
-        description: 'First-Time Guests This Month',
-      },
-      {
-        value: 15,
-        description: 'Returning Guests This Month',
-      },
-      {
-        value: 40,
-        description: 'Guests in Follow-Up',
-      },
-    ];
+    this.dashboardService.getGuestMetrics();
   }
 
   private initializeSummary(): void {
@@ -57,6 +47,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private initializeTodoTasks(): void {
+    this.dashboardService.getUserTasks();
     this.todoTasks = [
       {
         id: 'task1',

@@ -1,11 +1,12 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { UserService } from '../core/services/user.service';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit {
   isCollapsed = true; // Single variable to control the sidebar
 
   sidebarItems = [
@@ -13,6 +14,14 @@ export class AdminComponent {
     { label: 'Settings', routerLink: '/settings', icon: 'pi pi-cog' },
     // Add more items here
   ];
+
+  constructor(
+    private userService: UserService
+  ) {}
+
+  ngOnInit(): void {
+    this.userService.getUserInformation();
+  }
 
   // Check if the current screen is mobile
   isMobile(): boolean {

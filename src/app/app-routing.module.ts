@@ -14,7 +14,7 @@ export const appRoutes: Route[] = [
   {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: "**", redirectTo: "/auth/login" // Catch-all route for undefined paths
