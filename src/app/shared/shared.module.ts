@@ -9,10 +9,13 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { CarouselModule } from 'primeng/carousel';
 import { TableModule } from 'primeng/table';
+import { PaginatorModule } from 'primeng/paginator';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { InlineFilterComponent } from './components/inline-filter/inline-filter.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [InlineFilterComponent],
   imports: [
     CommonModule,
     ButtonModule,
@@ -22,7 +25,9 @@ import { TableModule } from 'primeng/table';
     FloatLabelModule,
     ToastModule,
     CarouselModule,
-    TableModule
+    TableModule,
+    PaginatorModule,
+    SelectButtonModule
   ],
   providers: [
     MessageService
@@ -34,7 +39,10 @@ import { TableModule } from 'primeng/table';
     CardModule,
     FloatLabelModule,
     CarouselModule,
-    TableModule
+    TableModule,
+    PaginatorModule,
+    SelectButtonModule,
+    InlineFilterComponent
   ]
 })
 export class SharedModule { }

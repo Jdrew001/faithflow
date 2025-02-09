@@ -1,0 +1,39 @@
+<div class="filter-container">
+  <!-- Filter Button -->
+  <p-button *ngIf="!isOpen"
+    (click)="toggleFilter()"
+    icon="pi pi-filter"
+    [rounded]="true"
+    [text]="true"
+    size="small"
+    styleClass="p-button-secondary"
+  ></p-button>
+  <p-button *ngIf="isOpen"
+    (click)="toggleFilter()"
+    icon="pi pi-times"
+    [rounded]="true"
+    [text]="true"
+    size="small"
+    styleClass="p-button-secondary"
+  ></p-button>
+
+  <!-- Filter Panel -->
+  <div class="filter-panel" [class.show]="isOpen">
+    <div class="filter-options">
+      <ng-container *ngFor="let filter of config">
+        <ng-container *ngIf="filter.type == 'splitButton'">
+          <p-selectButton
+            styleClass="layout-light"
+            [options]="filter.options"
+            [(ngModel)]="filter.selectedOption"
+            [multiple]="filter.multiple"
+            [optionLabel]="filter.optionLabel"
+            [optionValue]="filter.optionValue"
+            (onChange)="applyFilters()"
+          />
+        </ng-container>
+      </ng-container>
+
+    </div>
+  </div>
+</div>

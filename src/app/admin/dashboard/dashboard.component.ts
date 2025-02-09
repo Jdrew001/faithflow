@@ -4,6 +4,8 @@ import { DashboardService } from './services/dashboard.service';
 import { ActivityLogList } from './models/activity-log.model';
 import { GuestMetricModel } from './models/guest-metrics.model';
 import { UserService } from '../../core/services/user.service';
+import { WorkflowAssignment } from './models/workflow-assignment.model';
+import { InlineFilterModel, InlineFilterType } from '../../shared/components/inline-filter/model/inline-filter.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,18 +14,36 @@ import { UserService } from '../../core/services/user.service';
 })
 export class DashboardComponent implements OnInit {
 
+  completionMetricFilter: InlineFilterModel[] = [
+    {
+      id: 'completionMetric',
+      type: InlineFilterType.SPLIT_BUTTON,
+      options: [
+        { name: 'All-Time', value: 'all' },
+        { name: 'This Month', value: 'this_month' },
+        { name: 'This Week', value: 'this_week' },
+        { name: 'Today', value: 'today' }
+      ],
+      selectedOption: 'all',
+      multiple: false,
+      optionLabel: 'name',
+      optionValue: 'value'
+    }
+  ];
   get summary(): WorkflowSummary[] { return this.dashboardService?.workflowSummary || []; }
   get activityLogs(): ActivityLogList[] { return this.dashboardService?.activityLogList || []; }
   get guestMetrics(): GuestMetricModel[] { return this.dashboardService?.guestMetrics || []; }
-  todoTasks: any[] = [];
+  get workflowAssignments(): WorkflowAssignment[] { return this.dashboardService?.assignments || []; }
+  get assignmentMetrics(): any[] { return this.dashboardService?.assignmentMetrics || []; }
   responsiveOptions: any[] = [];
   taskMetrics: any[] = [];
+  paginatedTasks: any[] = []; // Stores only the tasks for the current page
+  pageSize: number = 5; // Number of tasks per page
 
   constructor(
     private readonly dashboardService: DashboardService,
     private readonly userService: UserService
   ) {}
-
 
   ngOnInit(): void {
     this.initializeSummary();
@@ -32,6 +52,17 @@ export class DashboardComponent implements OnInit {
     this.initializeResponsiveOptions();
     this.initializeGuestMetrics();
     this.initializeTaskMetrics();
+    this.initializeAssignmentMetrics();
+  }
+
+  workflowAssignmentPaginate(event: any) {
+    const startIndex = event.first;
+    const endIndex = startIndex + event.rows;
+    this.paginatedTasks = this.workflowAssignments.slice(startIndex, endIndex);
+  }
+
+  updateCompletionMetrics(filter: Record<string, any>) {
+    this.dashboardService.getAssignmentMetrics(filter);
   }
 
   private initializeGuestMetrics(): void {
@@ -47,30 +78,13 @@ export class DashboardComponent implements OnInit {
   }
 
   private initializeTodoTasks(): void {
-    this.dashboardService.getUserTasks();
-    this.todoTasks = [
-      {
-        id: 'task1',
-        action: 'Send follow-up email',
-        relatedTo: 'John Doe',
-        dueDate: new Date(new Date().setDate(new Date().getDate() + 1)),
-        status: 'TODO',
-      },
-      {
-        id: 'task2',
-        action: 'Schedule onboarding meeting',
-        relatedTo: 'Alice Johnson',
-        dueDate: new Date(new Date().setHours(new Date().getHours() + 5)),
-        status: 'COMPLETED',
-      },
-      {
-        id: 'task3',
-        action: 'Finalize workflow documentation',
-        relatedTo: 'Workflow: New Member Onboarding',
-        dueDate: new Date(new Date().setDate(new Date().getDate() + 3)),
-        status: 'OVERDUE',
-      },
-    ];
+    this.dashboardService.getUserTasks().subscribe(() => {
+      this.workflowAssignmentPaginate({first: 0, rows: this.pageSize});
+    });
+  }
+
+  private initializeAssignmentMetrics() {
+    this.dashboardService.getAssignmentMetrics({completionMetric: 'all'});
   }
 
   private initializeResponsiveOptions(): void {
@@ -104,18 +118,18 @@ export class DashboardComponent implements OnInit {
       },
     ];
   }
-  
+
   markAsIncomplete(taskId: string): void {
-    const task = this.todoTasks.find((t) => t.id === taskId);
-    if (task) {
-      task.status = 'TODO';
-    }
+    // const task = this.todoTasks.find((t) => t.id === taskId);
+    // if (task) {
+    //   task.status = 'TODO';
+    // }
   }
 
   markAsCompleted(taskId: string): void {
-    const task = this.todoTasks.find((t) => t.id === taskId);
-    if (task) {
-      task.status = 'Completed';
-    }
+    // const task = this.todoTasks.find((t) => t.id === taskId);
+    // if (task) {
+    //   task.status = 'Completed';
+    // }
   }
 }

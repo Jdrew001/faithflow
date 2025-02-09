@@ -4,6 +4,8 @@ import { HttpHelperService } from '../../../core/services/http-helper.service';
 import { ActivityLogList } from '../models/activity-log.model';
 import { GuestMetricModel } from '../models/guest-metrics.model';
 import { UserService } from '../../../core/services/user.service';
+import { tap } from 'rxjs/operators';
+import { ValueDescriptionModel } from '../../../core/models/value-description.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +27,10 @@ export class DashboardService {
   private _assignments: any[] = [];
   get assignments(): any[] { return this._assignments; }
   set assignments(value: any[]) { this._assignments = value; }
+
+  private _assignmentMetrics: ValueDescriptionModel[] = [];
+  get assignmentMetrics(): ValueDescriptionModel[] { return this._assignmentMetrics; }
+  set assignmentMetrics(value: ValueDescriptionModel[]) { this._assignmentMetrics = value; }
 
   constructor(
     private readonly httpHelperService: HttpHelperService,
@@ -50,8 +56,14 @@ export class DashboardService {
   }
 
   getUserTasks() {
-    this.httpHelperService.get<[]>(`workflow-assignments/user`).subscribe((data) => {
-      this.assignments = data;
+    return this.httpHelperService.get<[]>(`workflow-assignments/user`).pipe(
+      tap(o => this.assignments = o)
+    );
+  }
+
+  getAssignmentMetrics(body: any) {
+    this.httpHelperService.post<any>('workflow-assignments/getAssignmentMetrics', body).subscribe((data) => {
+      this.assignmentMetrics = data;
     });
   }
 }

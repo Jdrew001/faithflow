@@ -36,81 +36,31 @@
       </ng-template>
     </p-carousel>
   </div>
-  
+
   <!-- Guest Engagement Metrics -->
-  <div class="guest-metrics">
-    <h3>Guest Engagement Metrics</h3>
-    <div class="metric-cards">
-      <div class="metric-card" *ngFor="let metric of guestMetrics">
-        <div class="metric-value">{{ metric.value }}</div>
-        <div class="metric-description">{{ metric.description }}</div>
-      </div>
-    </div>
+  <div class="carousel-container">
+    <h4>Member Metrics</h4>
+    <p-carousel
+      [value]="guestMetrics"
+      [numVisible]="guestMetrics.length"
+      [numScroll]="1"
+      [circular]="true"
+      class="custom-carousel"
+      [responsiveOptions]="responsiveOptions"
+      [showIndicators]="false"
+    >
+      <ng-template let-card pTemplate="item">
+        <div class="card">
+          <h3>{{ card.value }}</h3>
+          <p>{{ card.description }}</p>
+        </div>
+      </ng-template>
+    </p-carousel>
   </div>
-
-  <!-- To-Do List -->
-   <!-- To-Do List and Task Completion Metrics -->
-  <div class="grid">
-    <!-- To-Do List -->
-    <div class="todo-list col-12 md:col-6 lg:col-6">
-      <h3>My To-Do List</h3>
-      <ul>
-        <li *ngFor="let task of todoTasks" [class]="task.status.toLowerCase()">
-          <div class="task-info">
-            <h4>{{ task.action }}</h4>
-            <p>Related To: {{ task.relatedTo }}</p>
-            <p>Due: {{ task.dueDate | date: 'short' }}</p>
-            <span [class]="task.status.toLowerCase()" class="task-status">{{ task.status }}</span>
-          </div>
-          <div class="task-actions">
-            <button *ngIf="task.status === 'TODO' || task.status === 'OVERDUE'" (click)="markAsCompleted(task.id)">
-              Mark as Completed
-            </button>
-            <button *ngIf="task.status === 'COMPLETED'" (click)="markAsIncomplete(task.id)">
-              Mark as Incomplete
-            </button>
-          </div>
-        </li>
-      </ul>
-    </div>
-
-    <!-- Task Completion Metrics -->
-    <div class="task-metrics col-12 md:col-6 lg:col-6">
-      <h3>Task Completion Metrics</h3>
-      <div class="metric-cards">
-        <div class="metric-card" *ngFor="let metric of taskMetrics">
-          <div class="metric-value">{{ metric.value }}</div>
-          <div class="metric-description">{{ metric.description }}</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- <div class="todo-list">
-    <h3>My To-Do List</h3>
-    <ul>
-      <li *ngFor="let task of todoTasks" [class]="task.status.toLowerCase()">
-        <div class="task-info">
-          <h4>{{ task.action }}</h4>
-          <p>Related To: {{ task.relatedTo }}</p>
-          <p>Due: {{ task.dueDate | date: 'short' }}</p>
-          <span [class]="task.status.toLowerCase()" class="task-status">{{ task.status }}</span>
-        </div>
-        <div class="task-actions">
-          <button *ngIf="task.status === 'TODO' || task.status === 'OVERDUE'" (click)="markAsCompleted(task.id)">
-            Mark as Completed
-          </button>
-          <button *ngIf="task.status === 'COMPLETED'" (click)="markAsCompleted(task.id)">
-            Mark as Incomplete
-          </button>
-          
-        </div>
-      </li>
-    </ul>
-  </div> -->
 
   <!-- Recent Activity Logs -->
   <div class="recent-activity">
-    <h3>Recent Activity Logs</h3>
+    <h4>Recent Activity</h4>
     <p-table
       [value]="activityLogs"
       [responsiveLayout]="'scroll'"
@@ -141,5 +91,71 @@
         </tr>
       </ng-template>
     </p-table>
+  </div>
+
+  <div class="grid">
+    <div class="task-metrics col-12 md:col-12 lg:col-12">
+      <h4>My Assignment Metrics</h4>
+
+      <!-- Filter Dropdown -->
+      <div class="filter-container mb-2">
+<!--        <label for="timeFrame">Filter by Time Frame:</label>-->
+        <app-inline-filter
+          [config]="completionMetricFilter"
+          (onFilterChange)="updateCompletionMetrics($event)"
+        ></app-inline-filter>
+
+      </div>
+
+      <!-- Task Metrics -->
+      <div class="carousel-container">
+        <p-carousel
+          [value]="assignmentMetrics"
+          [numVisible]="assignmentMetrics.length"
+          [numScroll]="1"
+          [circular]="true"
+          class="custom-carousel"
+          [responsiveOptions]="responsiveOptions"
+          [showIndicators]="false"
+        >
+          <ng-template let-card pTemplate="item">
+            <div class="card">
+              <h3>{{ card.value }}</h3>
+              <p>{{ card.description }}</p>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
+    </div>
+
+    <!-- To-Do List -->
+    <div class="todo-list col-12 md:col-12 lg:col-12">
+      <h4>My Assignments</h4>
+      <p-paginator
+        [rows]="pageSize"
+        [totalRecords]="workflowAssignments.length"
+        (onPageChange)="workflowAssignmentPaginate($event)">
+      </p-paginator>
+
+      <ul>
+        <li *ngFor="let task of paginatedTasks" [class]="task.status.toLowerCase()">
+          <div class="task-info">
+            <h4>{{ task.action }}</h4>
+            <p>Member: {{ task.relatedTo }}</p>
+            <p>Due: {{ task.dueDate | date: 'short' }}</p>
+            <span [class]="task.status.toLowerCase()" class="task-status">{{ task.status }}</span>
+          </div>
+          <div class="task-actions">
+            <button *ngIf="task.status === 'TODO' || task.status === 'OVERDUE'" (click)="markAsCompleted(task.id)">
+              Mark as Completed
+            </button>
+            <button *ngIf="task.status === 'COMPLETED'" (click)="markAsIncomplete(task.id)">
+              Mark as Incomplete
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+
   </div>
 </div>

@@ -126,7 +126,6 @@
 /* Activity Logs Section */
 .recent-activity {
   margin-top: 30px;
-  margin-bottom: 10rem;
 }
 
 .recent-activity h3 {
@@ -259,6 +258,10 @@
 
 .todo-list .overdue {
   border-left: 4px solid red; /* Orange for Pending */
+}
+
+.todo-list .pending {
+  border-left: 4px solid #ff4900; /* Orange for Pending */
 }
 
 .todo-list .todo {

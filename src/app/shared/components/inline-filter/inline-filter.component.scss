@@ -1,0 +1,38 @@
+.filter-container {
+  display: flex; /* Inline layout for button and panel */
+  align-items: center;
+  position: relative; /* Ensure relative positioning for the container */
+}
+
+/* Filter Button */
+p-button {
+  margin-right: 10px; /* Spacing between button and panel */
+  font-size: 8px !important;
+}
+
+:host ::ng-deep .p-button.p-button-sm {
+  padding: 0.1rem 0.75rem;
+}
+
+/* Filter Panel */
+.filter-panel {
+  position: absolute;
+  left: 50px; /* Adjust spacing for alignment */
+  display: flex;
+  top: 50%;
+  transform: translateY(-50%); /* Vertically align */
+  background: white;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  min-width: 200px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Show Panel */
+.filter-panel.show {
+  opacity: 1;
+  visibility: visible;
+}
