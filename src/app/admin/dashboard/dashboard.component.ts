@@ -14,6 +14,7 @@ import { InlineFilterModel, InlineFilterType } from '../../shared/components/inl
 })
 export class DashboardComponent implements OnInit {
 
+  // TODO: Move this to the service
   completionMetricFilter: InlineFilterModel[] = [
     {
       id: 'completionMetric',
@@ -36,24 +37,24 @@ export class DashboardComponent implements OnInit {
   get workflowAssignments(): WorkflowAssignment[] { return this.dashboardService?.assignments || []; }
   get assignmentMetrics(): any[] { return this.dashboardService?.assignmentMetrics || []; }
   responsiveOptions: any[] = [];
-  taskMetrics: any[] = [];
-  paginatedTasks: any[] = []; // Stores only the tasks for the current page
-  pageSize: number = 5; // Number of tasks per page
+  paginatedTasks: any[] = [];
+  pageSize: number = 5;
 
   constructor(
     private readonly dashboardService: DashboardService,
     private readonly userService: UserService
   ) {}
 
+  ///region: life cycle hooks
   ngOnInit(): void {
     this.initializeSummary();
     this.initializeActivityLogs();
     this.initializeTodoTasks();
     this.initializeResponsiveOptions();
     this.initializeGuestMetrics();
-    this.initializeTaskMetrics();
     this.initializeAssignmentMetrics();
   }
+  ///endregion
 
   workflowAssignmentPaginate(event: any) {
     const startIndex = event.first;
@@ -98,23 +99,6 @@ export class DashboardComponent implements OnInit {
         breakpoint: '768px',
         numVisible: 1,
         numScroll: 1,
-      },
-    ];
-  }
-
-  private initializeTaskMetrics(): void {
-    this.taskMetrics = [
-      {
-        value: 12,
-        description: 'Tasks Completed',
-      },
-      {
-        value: 5,
-        description: 'Tasks Overdue',
-      },
-      {
-        value: 8,
-        description: 'Tasks Pending',
       },
     ];
   }

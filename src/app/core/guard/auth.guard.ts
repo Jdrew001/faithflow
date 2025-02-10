@@ -11,7 +11,8 @@ export class AuthGuard implements CanActivate {
   canActivate(): boolean {
     // Check if the user has a valid access token
     const token = this.authService.getAccessToken();
-    if (token) {
+    const refreshToken = this.authService.getRefreshToken();
+    if (token || refreshToken) {
       return true; // Allow navigation
     }
 
