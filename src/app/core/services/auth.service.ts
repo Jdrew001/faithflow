@@ -62,4 +62,9 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!this.getRefreshToken();
   }
+
+  logout(): void {
+    this.clearTokens();
+    this.router.navigate(['/auth/login']);
+  }
 }

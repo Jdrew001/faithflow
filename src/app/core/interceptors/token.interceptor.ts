@@ -7,45 +7,60 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, switchMap, take, tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  private hasRedirected = false; // Prevents multiple redirects
+  private handlingError = false; // Prevents re-entrance
+
+  constructor(private authService: AuthService, private router: Router) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = this.authService.getAccessToken();
 
-    // Attach access token if available
     if (token) {
       req = req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`,
-        },
+        setHeaders: { Authorization: `Bearer ${token}` },
       });
     }
 
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        // Handle token expiration
-        if (error.status === 401 && this.authService.getRefreshToken()) {
-          return this.authService.refreshAccessToken().pipe(
-            switchMap((response) => {
-              // Retry the failed request with the new token
-              this.authService.setAccessToken(response.accessToken);
-              req = req.clone({
-                setHeaders: {
-                  Authorization: `Bearer ${response.accessToken}`,
-                },
-              });
-              return next.handle(req);
-            })
-          );
+        if (error.status === 401 && this.handlingError) {
+          return this.redirectToLogin(); // Redirect to login if already handling an error
         }
-
+        if (error.status === 401) {
+          return this.handle401Error(req, next);
+        }
         return throwError(() => error);
       })
     );
+  }
+
+  private handle401Error(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    this.handlingError = true;
+    return this.authService.refreshAccessToken().pipe(
+      switchMap(response => {
+        this.authService.setAccessToken(response.accessToken);
+        req = req.clone({ setHeaders: { Authorization: `Bearer ${response.accessToken}` } });
+        return next.handle(req);
+      }),
+      catchError((refreshError: HttpErrorResponse) => {
+        console.error('Refresh token failed:', refreshError);
+        return this.redirectToLogin(); // Refresh failed → Redirect to login
+      })
+    );
+  }
+
+  private redirectToLogin(): Observable<never> {
+    if (!this.hasRedirected) {
+      this.hasRedirected = true; // Ensure we redirect only once
+      this.authService.logout();
+      this.router.navigate(['/auth/login']);
+    }
+    return throwError(() => new Error('Redirecting to login...'));
   }
 }
