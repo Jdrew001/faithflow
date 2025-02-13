@@ -1,0 +1,15 @@
+<div *ngIf="form">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <ng-container *ngFor="let field of fields">
+      <ng-container *ngComponentOutlet="getComponentForField(field); inputs: { field: field, control: form.controls[field.key] }"></ng-container>
+    </ng-container>
+
+    <div class="button-container">
+      <button pButton type="button" label="Cancel" (click)="ref.close()"></button>
+      <button pButton type="submit" label="Submit" [disabled]="form?.invalid"></button>
+    </div>
+  </form>
+</div>
+
+
+

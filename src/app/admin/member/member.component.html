@@ -1,0 +1,42 @@
+<p-card>
+  <p-toolbar styleClass="mb-4 gap-2">
+    <ng-template pTemplate="left">
+
+    </ng-template>
+
+    <ng-template pTemplate="right">
+      <p-button
+        severity="primary"
+        size="small"
+        label="Create"
+        icon="pi pi-upload"
+        (click)="addNewMember($event)"
+      />
+    </ng-template>
+  </p-toolbar>
+  <p-table #dt
+           [value]="data"
+           [columns]="columns"
+           [paginator]="true"
+           [rows]="length"
+           [scrollable]="true"
+           scrollHeight="400px"
+           [virtualScroll]="true"
+           [virtualScrollItemSize]="30"
+           [lazy]="true"
+           [showCurrentPageReport]="true"
+           [tableStyle]="{ 'min-width': '50rem' }"
+           (onLazyLoad)="fetchMembers($event)"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns" [ngStyle]="{'width':col.width + '%'}">{{col.header}}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+        <td *ngFor="let col of columns">{{ rowData[col.field] }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

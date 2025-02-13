@@ -10,7 +10,8 @@ export class AdminComponent implements OnInit {
   isCollapsed = true; // Single variable to control the sidebar
 
   sidebarItems = [
-    { label: 'Dashboard', routerLink: '/dashboard', icon: 'pi pi-home' },
+    { label: 'Dashboard', routerLink: '/admin/dashboard', icon: 'pi pi-home' },
+    { label: 'Members', routerLink: '/admin/members', icon: 'pi pi-users' },
     { label: 'Settings', routerLink: '/settings', icon: 'pi pi-cog' },
     // Add more items here
   ];

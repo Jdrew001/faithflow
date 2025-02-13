@@ -11,14 +11,10 @@ export const appRoutes: Route[] = [
               path: 'dashboard',
               loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
             },
-            // {
-            //   path: 'settings',
-            //   loadChildren: () => import('./settings/settings.module').then((m) => m.SettingsModule),
-            // },
-            // {
-            //   path: 'profile',
-            //   loadChildren: () => import('./profile/profile.module').then((m) => m.ProfileModule),
-            // },
+            {
+              path: 'members',
+              loadChildren: () => import('./member/member.module').then((m) => m.MemberModule),
+            }
           ],
     }
 ]

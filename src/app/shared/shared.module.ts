@@ -12,6 +12,10 @@ import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { InlineFilterComponent } from './components/inline-filter/inline-filter.component';
+import { ToolbarModule } from 'primeng/toolbar';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GenericDialogFormModule } from './components/generic-dialog-form/generic-dialog-form.module';
 
 
 @NgModule({
@@ -27,7 +31,11 @@ import { InlineFilterComponent } from './components/inline-filter/inline-filter.
     CarouselModule,
     TableModule,
     PaginatorModule,
-    SelectButtonModule
+    SelectButtonModule,
+    ToolbarModule,
+    FormsModule,
+    ReactiveFormsModule,
+    GenericDialogFormModule
   ],
   providers: [
     MessageService
@@ -42,7 +50,11 @@ import { InlineFilterComponent } from './components/inline-filter/inline-filter.
     TableModule,
     PaginatorModule,
     SelectButtonModule,
-    InlineFilterComponent
+    InlineFilterComponent,
+    ToolbarModule,
+    FormsModule,
+    ReactiveFormsModule,
+    GenericDialogFormModule
   ]
 })
 export class SharedModule { }
